@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class JpaMain {
+public class JpaMain2 {
     public static void main(String[] args) {
         // 어플리케이션이 동작 할 때 딱한번 생성된다.
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
@@ -18,16 +18,19 @@ public class JpaMain {
         tx.begin();
 
         try {
-            // 생성
-            Member member = new Member();
+//            // 비영속
+//            Member member = new Member();
+//            member.setId(101L);
+//            member.setName("홍길동");
 
-            member.setId(1L);
-            member.setName("김유신");
+            //영속
+            System.out.println("=== BEFORE ===");
+//            em.persist(member);
+            System.out.println("=== AFTER ===");
 
-//            Member findMember = em.find(Member.class, 1L); // 조회
-//            findMember.setName("세종대왕"); // 수정
-    //            em.remove(findMember); // 삭제
-            em.persist(member);
+            Member findMember1 = em.find(Member.class, 101L);
+            Member findMember2 = em.find(Member.class, 101L);
+            System.out.println("result : " + (findMember1 == findMember2));
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
